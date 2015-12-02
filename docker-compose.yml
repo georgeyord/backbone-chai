@@ -1,0 +1,6 @@
+frontend:
+  image: georgeyord/static-file-server-nodejs
+  ports:
+   - 5080:80
+  volumes:
+   - .:/static
