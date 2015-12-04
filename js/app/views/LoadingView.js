@@ -1,13 +1,12 @@
 define([
-    'backbone',
     'react',
     'reactdom'
-], function(Backbone, React, ReactDOM) {
+], function(React, ReactDOM) {
     return Backbone.View.extend({
-        el: $('#output-placeholder'),
+        el: $('#content-placeholder'),
 
         initialize: function() {
-            this.outputBox = React.createClass({
+            this.loadingTemplate = React.createClass({
                 render: function() {
                     return <h2>{this.props.label}</h2>
                 }
@@ -19,7 +18,7 @@ define([
                 label = "Loading...";
             }
             ReactDOM.render(
-                React.createElement(this.outputBox, {
+                React.createElement(this.loadingTemplate, {
                     label: label
                 }),
                 this.$el[0]

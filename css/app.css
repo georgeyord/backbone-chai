@@ -69,10 +69,36 @@ h1 {
   padding: 0;
   font-size: 5em;
   font-weight: bold;
-  text-align: center;
+}
+
+h2 {
+  margin: 0 0 1em;
+  font-weight: bold;
+	font-size: 2em;
 }
 
 p, ul {
   margin: 0 0 1em;
-  font-size: 2em;
 }
+
+.item-details > li {
+	float: left;
+}
+
+.clearfix { display: inline-block; }
+.clearfix:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */
+
+/*font-family="Palladio FS,SimSun"
+font-size="24"
+font-size="12"*/

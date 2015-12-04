@@ -1,42 +1,32 @@
 define([
-    'views/ItemView',
-    'text!templates/item.html'
-], function(ItemView, ItemTemplate) {
+  'react',
+  'reactdom'
+  ], function(React, ReactDOM) {
     return Backbone.View.extend({
         el: $('#content-placeholder'),
-
-        initialize: function(options) {
-            this.item = options.item;
-            this.level = null;
-        },
-
-        render: function(level) {
-            this.level = level;
-            this.$el.html(formTemplate);
-            this.formInput = this.$el.find('#input');
-            return this;
-        },
-
-        submit: function(e) {
-            if (_.isObject(e) && e.originalEvent instanceof Event) {
-                e.preventDefault();
+        itemTemplate: React.createClass({
+            render: function() {
+                return (
+                  <div className="item clearfix">
+                    <h2 className="item-taste">{this.props.taste}</h2>
+                    <ul className="item-details">
+                      <li className="item-type">{this.props.type}</li>
+                      <li className="item-supplier">{this.props.supplier}</li>
+                      <li className="item-dateBought">{this.props.dateBought}</li>
+                      <li className="item-packaging">{this.props.packaging}</li>
+                      <li className="item-description">{this.props.description}</li>
+                    </ul>
+                  </div>
+                );
             }
-            var _this = this,
-                level_id = this.level.get("id"),
-                play = new Play({
-                    level: this.level
-                });
+        }),
 
-            play.on('change', function(model, response, options) {
-                if (level_id !== this.level.get("id")) {
-                    _this.router.navigate("play/" + this.level.get("id"), true);
-                }
-            });
-
-            play.saveModel({
-                level: level_id,
-                input: this.formInput.val()
-            });
+        render: function() {
+            ReactDOM.render(
+                React.createElement(this.itemTemplate, this.model.toJSON()),
+                this.$el[0]
+            );
         }
+
     });
 });

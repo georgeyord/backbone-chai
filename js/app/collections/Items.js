@@ -5,7 +5,24 @@ define([
 
     return Backbone.Collection.extend({
         model: Item,
-        sync: TabletopSync,
+        idAttribute: 'ID',
+        tabletop: function() {
+            return this.tabletop = {
+                instance: this.route.getTabletopInstance(),
+                sheet: 'Items'
+            }
+        },
+
+        initialize: function(options) {
+            this.route = options.route;
+            this.tabletop();
+            this.sync();
+        },
+
+        sync: function() {
+            this.sync = Backbone.tabletopSync;
+            return this.sync;
+        },
 
         getUnviewedItemID: function() {
             var unviewedItems = this.where({
