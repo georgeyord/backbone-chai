@@ -1,16 +1,14 @@
+/* globals requirejs */
 requirejs.config({
     baseUrl: 'js/app',
     paths: {
-        jquery: '../vendor/jQuery/dist/jquery.min',
-        underscore: '../vendor/underscore/underscore-min',
-        backbone: '../vendor/backbone/backbone-min',
-        text: "../vendor/requirejs-text/text",
-        jsx: "../vendor/jsx-requirejs-plugin/js/jsx",
-        JSXTransformer: "../vendor/jsx-requirejs-plugin/js/JSXTransformer",
-        react: "../vendor/react/react-with-addons",
-        reactdom: "../vendor/react/react-dom",
-        tabletopsync: "../vendor/tabletop/src/backbone.tabletopSync",
-        tabletop: "../vendor/tabletop/src/tabletop"
+        "backbone": '../vendor/backbone/backbone-min',
+        "backbone-sorted-collection": '../vendor/backbone-sorted-collection/backbone-sorted-collection',
+        "backbone-filtered-collection": '../vendor/backbone-filtered-collection/backbone-filtered-collection',
+        "handlebars": '../vendor/handlebars/handlebars.amd.min',
+        "jquery": '../vendor/jQuery/dist/jquery.min',
+        "text": "../vendor/requirejs-text/text",
+        "underscore": '../vendor/underscore/underscore-min'
     },
     shim: {
         backbone: {
@@ -19,22 +17,6 @@ requirejs.config({
         },
         jquery: {
             exports: '$'
-        },
-        react: {
-            exports: "React"
-        },
-        reactdom: {
-            exports: "ReactDOM"
-        },
-        underscore: {
-            exports: '_'
-        },
-        Tabletop: {
-            exports: 'Tabletop'
-        },
-        tabletopsync: {
-            deps: ['backbone', 'tabletop'],
-            exports: 'TabletopSync'
         }
     }
 });

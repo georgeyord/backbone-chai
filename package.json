@@ -1,5 +1,5 @@
 {
-	"name": "backbone-chai",
+	"name": "backbone-stats",
 	"version": "0.1.0",
 	"description": "A backbone-based single page application.",
 	"main": "index.html",
