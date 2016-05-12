@@ -1,4 +1,6 @@
 ## Getting Started
+
+[![Join the chat at https://gitter.im/georgeyord/backbone-chai](https://badges.gitter.im/georgeyord/backbone-chai.svg)](https://gitter.im/georgeyord/backbone-chai?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 You need to have [node.js](https://nodejs.org/) and [bower](http://bower.io/) and installed. When you are ready you can install all dependencies by typing :
 
 1. `npm install`
