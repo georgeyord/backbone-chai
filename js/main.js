@@ -7,6 +7,8 @@ requirejs.config({
         "backbone-filtered-collection": '../vendor/backbone-filtered-collection/backbone-filtered-collection',
         "handlebars": '../vendor/handlebars/handlebars.amd.min',
         "highcharts": '../vendor/highcharts/highcharts',
+        "highstock": '../vendor/highcharts/highstock',
+        "highmaps": '../vendor/highcharts/modules/map',
         "jquery": '../vendor/jQuery/dist/jquery.min',
         "text": "../vendor/requirejs-text/text",
         "underscore": '../vendor/underscore/underscore-min'
