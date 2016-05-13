@@ -7,7 +7,7 @@ define([
     _,
     Backbone
 ) {
-        
+
     return Backbone.Model.extend({
         idAttribute: 'id',
 

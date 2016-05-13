@@ -1,1 +1,44 @@
-{{debug .}}
+<form>
+
+{{#each types}}
+	{{#ifCond count '>' 0}}
+	  <label><input type="checkbox" class="types-checkbox" name="types-checkbox" value="{{title}}" {{#if selected}}checked{{/if}}>{{title}} ({{count}})</label><br>
+	{{/ifCond}}	{{#if @last}}</select>{{/if}}
+{{/each}}
+<br>
+
+{{#each types}}
+	{{#ifCond count '>' 0}}
+	  <label><input type="radio" class="types-radio" name="types-radio" value="{{title}}" {{#if selected}}checked{{/if}}>{{title}} ({{count}})</label><br>
+	{{/ifCond}}	{{#if @last}}</select>{{/if}}
+{{/each}}
+<br>
+
+{{#each types}}
+  {{#if @first}}
+  <select class="types-select">
+    <option value="-1"> -- select --</option>
+    {{/if}}
+  	{{#ifCond count '>' 0}}
+      <option value="{{title}}" {{#if selected}}selected="selected"{{/if}}>{{title}} ({{count}})</option>
+  	{{/ifCond}}
+	{{#if @last}}</select>{{/if}}
+{{/each}}
+<br>
+
+{{#each locations}}
+  {{#if @first}}
+  <select class="locations">
+    <option value="-1"> -- select --</option>
+    {{/if}}
+    {{#each sublocations}}
+      {{#ifCond count '>' 0}}
+        <option value="{{title}}" {{#if selected}}selected="selected"{{/if}}>{{../title}} - {{title}} ({{count}})</option>
+    	{{/ifCond}}
+    {{/each}}
+  {{#if @last}}</select>{{/if}}
+{{/each}}
+<br>
+
+<button type="button" id="filters-submit">Update chart</button>
+</form>

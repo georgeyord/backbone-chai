@@ -1,7 +1,7 @@
-<ul>
-	{{#each item}}
-  <li>
-    <a href="#{{id}}" class="{{class}} {{#if active}}active{{/if}}">{{title}}</a>
-  </li>
+<ul class="chart-menu">
+	{{#each items}}
+    <li>
+      <a href="{{href}}" class="{{class}} {{#if active}}active{{/if}}">{{title}}</a>
+    </li>
 	{{/each}}
 </ul>

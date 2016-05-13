@@ -1,18 +1,21 @@
-define([,
+define([
   'text!templates/menu.html',
-	'helpers/handlebars',
+	'helpers/handlebarsHelpers',
   'handlebars',
-  'backbone'
-  ], function(
-    MenuTemplate,
-    HandlebarsHelpers,
-    Handlebars,
-    Backbone
-    ) {
+  'backbone',
+  'underscore'
+], function(
+  MenuTemplate,
+  HandlebarsHelpers,
+  Handlebars,
+  Backbone,
+  _
+) {
     return Backbone.View.extend({
-        el: $('#chart-placeholder'),
+        el: $('#menu-placeholder'),
 
-        initialize: function() {
+        initialize: function(menuItems) {
+          this.menuItems = menuItems;
           this.registerHelpers();
           this.template = Handlebars.default.compile(MenuTemplate);
         },
@@ -24,8 +27,23 @@ define([,
     			}
     		},
 
-        render: function(data) {
-          var html = this.template(data);
+        processItems: function(activeId) {
+          var processedItems = [];
+          _.each(this.menuItems, function(item, id){
+            processedItems.push({
+              id: item.id,
+              href: "#chart/"+item.id,
+              title: item.title,
+              class: (item.class || ""),
+              active: (item.id === parseInt(activeId, 10))
+            })
+          });
+          return processedItems;
+        },
+
+        render: function(activeId) {
+          var items = this.processItems(activeId),
+              html = this.template({items:items});
           this.$el.html(html);
         }
 

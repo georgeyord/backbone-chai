@@ -1,18 +1,22 @@
 define([
   'text!templates/filters.html',
-	'helpers/handlebars',
+	'helpers/handlebarsHelpers',
   'handlebars',
   'backbone'
-  ], function(
-    FiltersTemplate,
-    HandlebarsHelpers,
-    Handlebars,
-    Backbone
-    ) {
+], function(
+  FiltersTemplate,
+  HandlebarsHelpers,
+  Handlebars,
+  Backbone
+) {
     return Backbone.View.extend({
-        el: $('#chart-placeholder'),
+        el: $('#filters-placeholder'),
+        events: {
+          "click #filters-submit" : "onChange"
+        },
 
-        initialize: function() {
+        initialize: function(options) {
+          this.router = options.router;
           this.registerHelpers();
           this.template = Handlebars.default.compile(FiltersTemplate);
         },
@@ -27,6 +31,21 @@ define([
         render: function(data) {
           var html = this.template(data);
           this.$el.html(html);
+        },
+
+        onChange: function() {
+          var filters = {},
+            $types = this.$el.find('.types'),
+            $locations = this.$el.find('.locations');
+          filters.types = $types ? $types.val(): null;
+          filters.typesCheckbox = this.$el.find('.types-checkbox')
+            .map(function(){
+              return $(this).val();
+            }).get();
+          filters.typesRadio = this.$el.find('.types-radio').val();
+          filters.typesSelect = this.$el.find('.types-select').val();
+          filters.locations = $locations ? $locations.val(): null;
+          this.router.onFiltersChanged(filters);
         }
 
     });

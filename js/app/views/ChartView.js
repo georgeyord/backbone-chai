@@ -1,11 +1,13 @@
 define([
   'text!templates/chart.html',
-	'helpers/handlebars',
+	'helpers/handlebarsHelpers',
+	'highcharts',
   'handlebars',
   'backbone'
   ], function(
     ChartTemplate,
     HandlebarsHelpers,
+    Highcharts,
     Handlebars,
     Backbone
     ) {
@@ -24,9 +26,33 @@ define([
     			}
     		},
 
-        render: function(data) {
-          var html = this.template(data);
-          this.$el.html(html);
+        render: function(collection) {
+          var data= collection.toJSON(),
+            html = this.template({data: data});
+          this.$el.highcharts({
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Fruit Consumption'
+            },
+            xAxis: {
+                categories: ['Apples', 'Bananas', 'Oranges']
+            },
+            yAxis: {
+                title: {
+                    text: 'Fruit eaten'
+                }
+            },
+            series: [{
+                name: 'Jane',
+                data: [1, 0, 4]
+            }, {
+                name: 'John',
+                data: [5, 7, 3]
+            }]
+          });
+          this.$el.append(html);
         }
 
     });

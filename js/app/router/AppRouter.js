@@ -1,17 +1,19 @@
 define([
-    'models/ChartDatum',
-    'collections/ChartData',
-    'views/ChartView',
+    'models/FiltersModel',
+    'collections/ChartCollection',
+    'views/MenuView',
     'views/FiltersView',
-    // 'views/MenuView',
+    'views/ChartView',
     // 'views/LoadingView',
+    'underscore',
     'backbone'
 ], function(
-    ChartDatum,
-    ChartData,
-    ChartView,
+    FiltersModel,
+    ChartCollection,
+    MenuView,
     FiltersView,
-    // MenuView,
+    ChartView,
+    _,
     Backbone
     // LoadingView
     ) {
@@ -20,39 +22,59 @@ define([
             'chart/:chartId': 'actionChart',
             '*default': 'actionDefault'
         },
-        defaultChartID: 0,
+        defaultChartId: 0,
+        menuItems: [
+            {
+                id: 0,
+                title: "title 0",
+            },
+            {
+                id: 1,
+                title: "title 1",
+            }
+        ],
 
         initialize: function() {
-            // this.menuView = new MenuView();
-            // this.filtersView = new FiltersView();
-            this.chartViews = {
-                0: new ChartView(),
-                1: new ChartView()
-            };
+            var _this = this;
+            this.menuView = new MenuView(this.menuItems);
+            this.filtersView = new FiltersView({router: this});
+            this.chartViews = {};
+            _.each(this.menuItems, function(item){
+               _this.chartViews[item.id] = new ChartView({id: item.id});
+            });
         },
 
         initializeItems: function(chartId) {
             var _this = this,
-                view = this.chartViews[chartId],
-                chartData = new ChartData();
-            chartData.fetch({
-                success: function() {
-                    console.log('here success');
-                    chartData.trigger('loaded');
+                chartView = this.chartViews[chartId],
+                chartCollection = new ChartCollection(),
+                filtersModel = new FiltersModel();
+
+            filtersModel.fetch({
+                success: function(model) {
+                    _this.filtersView.render(model.toJSON());
                 }
             });
-            chartData.on("loaded", function() {
-                console.log('here loaded');
-                view.render(chartData);
+            chartCollection.fetch({
+                success: function(collection) {
+                    chartView.render(collection);
+                }
             });
         },
 
         actionDefault: function() {
-            this.navigate("chart/" + this.defaultChartID, { trigger: true });
+            this.navigate("chart/" + this.defaultChartId, { trigger: true });
         },
 
         actionChart: function(chartId) {
+            this.chartId = chartId;
+            this.menuView.render(chartId);
             this.initializeItems(chartId);
+        },
+
+        onFiltersChanged: function(filters){
+            console.log(filters);
+            this.actionChart(this.chartId);
         }
 
     });

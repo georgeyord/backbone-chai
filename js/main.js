@@ -6,6 +6,7 @@ requirejs.config({
         "backbone-sorted-collection": '../vendor/backbone-sorted-collection/backbone-sorted-collection',
         "backbone-filtered-collection": '../vendor/backbone-filtered-collection/backbone-filtered-collection',
         "handlebars": '../vendor/handlebars/handlebars.amd.min',
+        "highcharts": '../vendor/highcharts/highcharts',
         "jquery": '../vendor/jQuery/dist/jquery.min',
         "text": "../vendor/requirejs-text/text",
         "underscore": '../vendor/underscore/underscore-min'
